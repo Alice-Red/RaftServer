@@ -1,4 +1,4 @@
-namespace RDSandboxCUI
+namespace RaftServer
 {
     public enum RequestType
     {

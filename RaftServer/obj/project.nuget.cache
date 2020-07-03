@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ovjef182jhwgggD82AtyTRs+MIjE7BHpBGgHTsajMpxK+T93Y25c+nUVeWy57YPlOIkriDLE8ho1HjkAwmISpw==",
+  "dgSpecHash": "vQIxNtGTgkGJnjPFtAUKtK4cIz75hx9lWFM4wrg4SRqnSRomX9xHCdZZEerUE5s3n/V0R9Oxi6URvaaOoGfbtA==",
   "success": true,
-  "projectFilePath": "/Users/pc1013/RiderProjects/RaftServer/RaftServer/RaftServer.csproj",
+  "projectFilePath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RaftServer\\RaftServer.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

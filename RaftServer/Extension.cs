@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace RDSandboxCUI
+namespace RaftServer
 {
     public class Extension
     {
