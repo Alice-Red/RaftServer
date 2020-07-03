@@ -2,4 +2,10 @@
 # この .gitignore ファイルは Microsoft(R) Visual Studio によって自動的に作成されました。
 ################################################################################
 
-/.vs/RaftServer/DesignTimeBuild/.dtbcache.v2
+/.vs/
+/.git/
+**/Debug/*
+**/bin/*
+**/obj/*
+**/netcoreapp3.1/*
+*.cache
