@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaftServer", "RaftServer\RaftServer.csproj", "{5DED1B21-E47B-4A6E-A14E-9C5241C7F3D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RUtil.RTcp", "RUtil.RTcp\RUtil.RTcp.csproj", "{4637924B-4187-464A-959B-88C352E8DEEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRaft", "TestRaft\TestRaft.csproj", "{357EFCC3-401B-403E-A1ED-8ED20DB4D08A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5DED1B21-E47B-4A6E-A14E-9C5241C7F3D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DED1B21-E47B-4A6E-A14E-9C5241C7F3D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DED1B21-E47B-4A6E-A14E-9C5241C7F3D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DED1B21-E47B-4A6E-A14E-9C5241C7F3D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4637924B-4187-464A-959B-88C352E8DEEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4637924B-4187-464A-959B-88C352E8DEEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4637924B-4187-464A-959B-88C352E8DEEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4637924B-4187-464A-959B-88C352E8DEEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{357EFCC3-401B-403E-A1ED-8ED20DB4D08A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{357EFCC3-401B-403E-A1ED-8ED20DB4D08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{357EFCC3-401B-403E-A1ED-8ED20DB4D08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{357EFCC3-401B-403E-A1ED-8ED20DB4D08A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

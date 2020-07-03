@@ -1,0 +1,15 @@
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RaftServer.deps.json
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RaftServer.runtimeconfig.json
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RaftServer.runtimeconfig.dev.json
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RaftServer.dll
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RaftServer.pdb
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RUtil.RTcp.dll
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/bin/Debug/netcoreapp3.1/RUtil.RTcp.pdb
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.csprojAssemblyReference.cache
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.AssemblyInfoInputs.cache
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.AssemblyInfo.cs
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.csproj.CoreCompileInputs.cache
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.csproj.CopyComplete
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.dll
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.pdb
+/Users/pc1013/RiderProjects/RaftServer/RaftServer/obj/Debug/netcoreapp3.1/RaftServer.genruntimeconfig.cache

@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "RaftServer/1.0.0": {
+        "dependencies": {
+          "RUtil.RTcp": "1.0.0"
+        },
+        "runtime": {
+          "RaftServer.dll": {}
+        }
+      },
+      "RUtil.RTcp/1.0.0": {
+        "runtime": {
+          "RUtil.RTcp.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RaftServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RUtil.RTcp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
