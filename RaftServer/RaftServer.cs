@@ -14,7 +14,8 @@ namespace RaftServer
         public RaftServer() {
             server = new Server(12345);
             server.MessageReceived += Server_MessageReceived;
-            server.ConnectionSuccessfull += Server_Connected;
+            //server.ConnectionSuccessfull += Server_Connected;
+            //server.DisConnected += Server_Disconnected;
             server.Boot();
             Console.WriteLine($"serverStarted --> [ http://127.0.0.1:{server.Port} ]");
         }
@@ -36,7 +37,7 @@ namespace RaftServer
             // Console.WriteLine(e.Message);
             HttpRequestObject req = new HttpRequestObject(e.Message);
             HttpResponseObject res = new HttpResponseObject("1.1");
-            Console.WriteLine($"{e.IpAddress} =-= {req.Path}");
+            //Console.WriteLine($"{e.IpAddress} =-= {req.Path}");
             // Console.WriteLine($"");
             bool close = false;
 
@@ -68,7 +69,7 @@ namespace RaftServer
                 res.ResponseCode = 404;
             }
 
-            Console.WriteLine($"{req.Path} : {res.ResponseCode}");
+            //Console.WriteLine($"{req.Path} : {res.ResponseCode}");
             sender.Send(e.IpAddress, res.ToByteArrayAll());
 
             if (close)
