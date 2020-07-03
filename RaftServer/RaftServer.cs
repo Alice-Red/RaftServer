@@ -3,7 +3,7 @@ using System.IO;
 using System.Threading;
 using RUtil.RTcp;
 
-namespace RDSandboxCUI
+namespace RaftServer
 {
     public class RaftServer
     {

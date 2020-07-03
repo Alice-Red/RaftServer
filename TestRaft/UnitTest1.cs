@@ -1,5 +1,6 @@
 using NUnit.Framework;
 
+
 namespace TestRaft
 {
     public class Tests
@@ -8,6 +9,8 @@ namespace TestRaft
         public void Setup() { }
 
         [Test]
-        public void Test1() { Assert.Pass(); }
+        public void Test1() {
+            Assert.Pass();
+        }
     }
 }

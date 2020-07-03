@@ -1225,6 +1225,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "RaftServer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "RUtil.RTcp": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RaftServer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RaftServer.dll": {}
+        }
+      },
+      "RUtil.RTcp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/RUtil.RTcp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RUtil.RTcp.dll": {}
+        }
       }
     }
   },
@@ -4618,12 +4641,24 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "RaftServer/1.0.0": {
+      "type": "project",
+      "path": "../RaftServer/RaftServer.csproj",
+      "msbuildProject": "../RaftServer/RaftServer.csproj"
+    },
+    "RUtil.RTcp/1.0.0": {
+      "type": "project",
+      "path": "../RUtil.RTcp/RUtil.RTcp.csproj",
+      "msbuildProject": "../RUtil.RTcp/RUtil.RTcp.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.NET.Test.Sdk >= 16.4.0",
       "NUnit3TestAdapter >= 3.15.1",
+      "RUtil.RTcp >= 1.0.0",
+      "RaftServer >= 1.0.0",
       "nunit >= 3.12.0"
     ]
   },
@@ -4657,7 +4692,14 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RaftServer\\RaftServer.csproj": {
+              "projectPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RaftServer\\RaftServer.csproj"
+            },
+            "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RUtil.RTcp\\RUtil.RTcp.csproj": {
+              "projectPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RUtil.RTcp\\RUtil.RTcp.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
