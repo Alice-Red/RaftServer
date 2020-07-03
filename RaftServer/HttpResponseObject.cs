@@ -18,7 +18,7 @@ namespace RDSandboxCUI
             get => ingredients;
             set {
                 ingredients = value;
-                StoreHeader("Content-Length", ingredients.Length.ToString());
+                //StoreHeader("Content-Length", ingredients.Length.ToString());
             }
         }
 
@@ -28,7 +28,7 @@ namespace RDSandboxCUI
             Header = new Dictionary<string, string>();
             ingredients = new byte[0];
         }
-        
+
         public HttpResponseObject(string httpVersion, int code) {
             HttpVersion = httpVersion;
             ResponseCode = code;
@@ -38,7 +38,7 @@ namespace RDSandboxCUI
 
         public void StoreHeader(string key, string value) {
             if (!Header.ContainsKey(key)) {
-                Header.Add(key,value);
+                Header.Add(key, value);
             } else {
                 Header[key] = value;
             }
@@ -48,6 +48,13 @@ namespace RDSandboxCUI
             if (Header.ContainsKey(key)) {
                 Header.Remove(key);
             }
+        }
+
+        public string HeaderValue(string key) {
+            if (Header.ContainsKey(key))
+                return Header[key];
+            else
+                return "";
         }
 
         public byte[] ToByteArrayAll() {

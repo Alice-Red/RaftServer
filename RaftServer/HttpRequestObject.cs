@@ -75,6 +75,12 @@ namespace RDSandboxCUI
             Ingredients = sb.ToString();
         }
 
+        public string HeaderValue(string key) {
+            if (Header.ContainsKey(key))
+                return Header[key];
+            else
+                return "";
+        }
 
         public bool Validate() { return RqType != RequestType.Err; }
 
