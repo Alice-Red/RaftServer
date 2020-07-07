@@ -124,7 +124,6 @@ namespace RUtil.RTcp
                             if (resSize == 0 && ms.Length == 0) {
                                 continue;
                             }
-
                             ms.Write(resBytes, 0, resSize);
                             // Debug.WriteLine(string.Join(" ", resBytes.Select(s => $"{s}")));
                             Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
@@ -140,6 +139,7 @@ namespace RUtil.RTcp
                         MessageReceived?.Invoke(this, new MessageReceivedArgs(ipadd, resMsg));
                     } catch (Exception e) {
                         Console.WriteLine(e);
+                        Console.WriteLine(resSize);
                         break;
                     }
                 }

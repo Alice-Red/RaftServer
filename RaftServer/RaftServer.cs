@@ -65,6 +65,8 @@ namespace RaftServer
                         break;
                 }
 
+            } else if (req.RqType == RequestType.Err) {
+                res.ResponseCode = 400;
             } else {
                 res.ResponseCode = 404;
             }
