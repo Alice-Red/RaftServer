@@ -128,6 +128,7 @@ namespace RUtil.RTcp
         }
 
         // 改  善  の  余  地  し  か  な  い
+        // 少しは改善されたと信じている
         private void AcceptCallback(IAsyncResult ar) {
             if (ForcedTermination)
                 return;
@@ -148,27 +149,33 @@ namespace RUtil.RTcp
             sw.Start();
 
             while (sw.ElapsedMilliseconds < TimeoutMilliSec) {
-                using (MemoryStream ms = new System.IO.MemoryStream()) {
-                    byte[] resBytes = new byte[255];
-                    int resSize = 0;
-                    try {
-                        do {
-                            resSize = client.Receive(resBytes);
-                            if (resSize == 0 && ms.Length == 0) {
-                                continue;
-                            }
-                            ms.Write(resBytes, 0, resSize);
-                            sw.Restart();
-                        } while (resBytes[resSize - 1] != '\n');
+                using MemoryStream ms = new System.IO.MemoryStream();
+                byte[] resBytes = new byte[255];
+                int resSize = 0;
 
-                        var resData = resBytes.ToArray();
-                        DataReceived?.Invoke(this, new DataReceivedArgs(ipadd, resData));
-                        var resMsg = Encoding.UTF8.GetString(ms.ToArray()).Trim('\r', '\n');
-                        MessageReceived?.Invoke(this, new MessageReceivedArgs(ipadd, resMsg));
-                    } catch (Exception e) {
+                // 強制的に切断された時用の try-catch
+                try {
+                    do {
+                        if (TimeoutMilliSec <= sw.ElapsedMilliseconds) {
+                            break;
+                        }
+                        resSize = client.Receive(resBytes);
+                        if (resSize == 0) {
+                            continue;
+                        }
 
-                        break;
-                    }
+                        ms.Write(resBytes, 0, resSize);
+                        sw.Restart();
+                    } while (resBytes[resSize - 1] != '\n');
+                    var resData = resBytes.ToArray();
+                    DataReceived?.Invoke(this, new DataReceivedArgs(ipadd, resData));
+                    var resMsg = Encoding.UTF8.GetString(ms.ToArray()).Trim('\r', '\n');
+                    MessageReceived?.Invoke(this, new MessageReceivedArgs(ipadd, resMsg));
+                } catch (Exception e) {
+                    // 受信中に切断された場合 System.IndexOutOfRangeException が発動する
+                    // タイミングによっては Socket の例外が来る
+                    Debug.WriteLine(e);
+                    break;
                 }
             }
 
