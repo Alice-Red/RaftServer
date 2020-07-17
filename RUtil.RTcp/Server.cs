@@ -240,8 +240,9 @@ namespace RUtil.RTcp
         public void Send(Func<Socket, int, bool> target, string message) {
             byte[] sendBytes = Encoding.UTF8.GetBytes(message);
             for (int i = 0; i < ConnectingList.Count(); i++) {
-                if (target(ConnectingList.ElementAt(i).Value, i))
+                if (target(ConnectingList.ElementAt(i).Value, i)) {
                     ConnectingList.ElementAt(i).Value.Send(sendBytes);
+                }
             }
         }
 
