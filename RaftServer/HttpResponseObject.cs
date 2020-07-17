@@ -9,6 +9,7 @@ namespace RaftServer
 {
     public class HttpResponseObject
     {
+        private static string[] indexes = new string[] { "index.html", "index.php" };
 
         public string HttpVersion { get; set; }
         public int ResponseCode { get; set; }
@@ -17,12 +18,13 @@ namespace RaftServer
         private byte[] ingredients;
         public byte[] Ingredients {
             get => ingredients;
-            set {
-                ingredients = value;
-                //StoreHeader("Content-Length", ingredients.Length.ToString());
-            }
+            set { ingredients = value; }
         }
 
+        /// <summary>
+        /// コンストラクタ１
+        /// </summary>
+        /// <param name="httpVersion">HTTPバージョン</param>
         public HttpResponseObject(string httpVersion) {
             HttpVersion = httpVersion;
             ResponseCode = 418;
@@ -30,6 +32,11 @@ namespace RaftServer
             ingredients = new byte[0];
         }
 
+        /// <summary>
+        /// コンストラクタ２
+        /// </summary>
+        /// <param name="httpVersion">HTTPバージョン</param>
+        /// <param name="code">レスポンスコード</param>
         public HttpResponseObject(string httpVersion, int code) {
             HttpVersion = httpVersion;
             ResponseCode = code;
@@ -37,6 +44,11 @@ namespace RaftServer
             ingredients = new byte[0];
         }
 
+        /// <summary>
+        /// ヘッダーを登録します
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void StoreHeader(string key, string value) {
             if (!Header.ContainsKey(key)) {
                 Header.Add(key, value);
@@ -45,38 +57,38 @@ namespace RaftServer
             }
         }
 
+        /// <summary>
+        /// 指定したヘッダーを削除します
+        /// </summary>
+        /// <param name="key"></param>
         public void DeleteHeader(string key) {
             if (Header.ContainsKey(key)) {
                 Header.Remove(key);
             }
         }
 
+        /// <summary>
+        /// 指定したヘッダーの値を取得します
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string HeaderValue(string key) {
-            if (Header.ContainsKey(key))
+            if (Header.ContainsKey(key)) {
                 return Header[key];
-            else
+            } else {
                 return "";
+            }
         }
 
         public void StoreFile(string path) {
-            if (!File.Exists(path))
-                if (path.LastOrDefault() == '/') {
-                    var indexes = new string[] { "index.html", "index.php" };
-                    foreach (var item in indexes) {
-                        if (File.Exists(path + item)) {
-                            path += item;
-                            break;
-                        }
+            if (!File.Exists(path) && path.LastOrDefault() == '/') {
+                foreach (var item in indexes) {
+                    if (File.Exists(path + item)) {
+                        path += item;
+                        break;
                     }
-                } else
-                    return;
-
-
-
-
-
-
-
+                }
+            }
         }
 
         /// <summary>

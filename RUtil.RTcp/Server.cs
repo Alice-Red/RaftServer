@@ -15,36 +15,63 @@ namespace RUtil.RTcp
 {
     public class Server
     {
+        /// <summary>
+        /// サーバーが起動した際に呼び出されます
+        /// </summary>
+        /// <param name="sender">呼び出したサーバークラス</param>
+        /// <param name="e"></param>
         public delegate void ServerAwakedHandler(Server sender, ServerAwakedArgs e);
-
         public event ServerAwakedHandler ServerAwaked;
 
+        /// <summary>
+        /// メッセージを受け取った際に呼び出されます
+        /// </summary>
+        /// <param name="sender">呼び出したサーバークラス</param>
+        /// <param name="e"></param>
         public delegate void MessageReceivedHandler(Server sender, MessageReceivedArgs e);
-
         public event MessageReceivedHandler MessageReceived;
 
+        /// <summary>
+        /// データを受け取った際に呼び出されます
+        /// </summary>
+        /// <param name="sender">呼び出したサーバークラス</param>
+        /// <param name="e"></param>
         public delegate void DataReceivedHandler(Server sender, DataReceivedArgs e);
-
         public event DataReceivedHandler DataReceived;
 
+        /// <summary>
+        /// クライアントと接続した際に呼び出されます
+        /// </summary>
+        /// <param name="sender">呼び出したサーバークラス</param>
+        /// <param name="e"></param>
         public delegate void ConnectionSuccessfullHandler(Server sender, ConnectionSuccessfullArgs e);
-
         public event ConnectionSuccessfullHandler ConnectionSuccessfull;
 
+        /// <summary>
+        /// クライアントとの接続が切られたときに呼び出されます
+        /// </summary>
+        /// <param name="sender">呼び出したサーバークラス</param>
+        /// <param name="e"></param>
         public delegate void DisConnectedHandler(Server sender, DisConnectedArgs e);
-
         public event DisConnectedHandler DisConnected;
 
+        /// <summary>
+        /// 現在の接続数が変更された際に呼び出されます
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public delegate void ConnectedCountChangedHandler(Server sender, ConnectedCountChangedArgs e);
-
         public event ConnectedCountChangedHandler ConnectedCountChanged;
 
+        /// <summary>
+        /// ポートを設定します
+        /// </summary>
+        public int Port { get; set; }
 
-        private int port;
-        public int Port { get { return port; } set { port = value; } }
 
-        private int connectedCount = 0;
-
+        /// <summary>
+        /// 現在の接続数を返します
+        /// </summary>
         public int ConnectedCount {
             get { return connectedCount; }
             private set {
@@ -53,23 +80,38 @@ namespace RUtil.RTcp
                 connectedCount = value;
             }
         }
+        private int connectedCount = 0;
 
+        // 強制終了
         private bool ForcedTermination = false;
 
-        public long Timeout = 10_000;
+        /// <summary>
+        /// タイムアウトの時間を設定します
+        /// </summary>
+        public long TimeoutMilliSec = 10_000;
 
         private Dictionary<string, Socket> ConnectingList = new Dictionary<string, Socket>();
 
-        // private int ID = 0;
-
+        /// <summary>
+        /// コンストラクタ１
+        /// </summary>
         public Server() { connectedCount = 0; }
 
-
+        /// <summary>
+        /// コンストラクタ２
+        /// </summary>
+        /// <param name="port">バインドするポート</param>
         public Server(int port) : base() { Create(port); }
 
-
+        /// <summary>
+        /// サーバーを作成します
+        /// </summary>
+        /// <param name="port">バインドするポート</param>
         public void Create(int port) { Port = port; }
 
+        /// <summary>
+        /// サーバーを起動します
+        /// </summary>
         public void Boot() {
             Socket server = new Socket(SocketType.Stream, ProtocolType.IP);
             server.Bind(new IPEndPoint(IPAddress.Any, Port));
@@ -78,17 +120,14 @@ namespace RUtil.RTcp
             Task.Factory.StartNew(() => { StartAccept(server); });
         }
 
+        // 受け入れを開始
         private void StartAccept(Socket server) {
-            // ホスト名を取得する
             string hostname = Dns.GetHostName();
-            // ホスト名からIPアドレスを取得する
-
-
-            // IPAddress[] adrList = Dns.GetHostAddresses();
             ServerAwaked?.Invoke(this, new ServerAwakedArgs(new string[] { server.LocalEndPoint.ToString() }, Port));
             server.BeginAccept(new AsyncCallback(AcceptCallback), server);
         }
 
+        // 改  善  の  余  地  し  か  な  い
         private void AcceptCallback(IAsyncResult ar) {
             if (ForcedTermination)
                 return;
@@ -114,7 +153,7 @@ namespace RUtil.RTcp
             ipadd = client.RemoteEndPoint.ToString();
             var sw = new Stopwatch();
             sw.Start();
-            while (sw.ElapsedMilliseconds < Timeout) {
+            while (sw.ElapsedMilliseconds < TimeoutMilliSec) {
                 using (MemoryStream ms = new System.IO.MemoryStream()) {
                     byte[] resBytes = new byte[255];
                     int resSize = 0;
@@ -149,34 +188,67 @@ namespace RUtil.RTcp
             Disconnect(ipadd);
         }
 
+        /// <summary>
+        /// 未定
+        /// </summary>
+        /// <param name="cmd"></param>
         [Obsolete]
         public void Command(string cmd) { }
 
+        /// <summary>
+        /// 接続しているクライアントすべてにテキストメッセージを一斉送信します
+        /// </summary>
+        /// <param name="message">送信するメッセージ</param>
         public void SendAll(string message) {
             foreach (var item in ConnectingList) {
                 Send(item.Value, message);
             }
         }
 
+        /// <summary>
+        /// 指定したIPアドレスを持つ接続中のクライアントにテキストメッセージを送信します
+        /// </summary>
+        /// <param name="ip">指定するIPアドレス</param>
+        /// <param name="message">送信するメッセージ</param>
         public void Send(string ip, string message) {
             if (ConnectingList.ContainsKey(ip)) {
                 Send(ConnectingList[ip], message);
             }
         }
 
-        public void Send(string ip, byte[] message) {
+        /// <summary>
+        /// 指定したIPアドレスを持つ接続中のクライアントにデータを送信します
+        /// </summary>
+        /// <param name="ip">指定するIPアドレス</param>
+        /// <param name="data">送信するデータ</param>
+        public void Send(string ip, byte[] data) {
             if (ConnectingList.ContainsKey(ip)) {
-                Send(ConnectingList[ip], message);
+                Send(ConnectingList[ip], data);
             }
         }
 
+        /// <summary>
+        /// 指定したソケットにテキストメッセージを送信します
+        /// </summary>
+        /// <param name="target">指定するソケット</param>
+        /// <param name="message">送信するメッセージ</param>
         private static void Send(Socket target, string message) {
             byte[] sendBytes = Encoding.UTF8.GetBytes(message);
             target?.Send(sendBytes);
         }
 
-        private static void Send(Socket target, byte[] message) { target?.Send(message); }
+        /// <summary>
+        /// 指定したソケットにデータを送信します
+        /// </summary>
+        /// <param name="target">指定するソケット</param>
+        /// <param name="data">送信するデータ</param>
+        private static void Send(Socket target, byte[] data) { target?.Send(data); }
 
+        /// <summary>
+        /// 指定した条件に合うソケットに対しテキストメッセージを送信します
+        /// </summary>
+        /// <param name="target">指定するソケットの条件</param>
+        /// <param name="message">送信するメッセージ</param>
         public void Send(Func<Socket, int, bool> target, string message) {
             byte[] sendBytes = Encoding.UTF8.GetBytes(message);
             for (int i = 0; i < ConnectingList.Count(); i++) {
@@ -185,6 +257,10 @@ namespace RUtil.RTcp
             }
         }
 
+        /// <summary>
+        /// 指定したIPのクライアントとの接続を切断します
+        /// </summary>
+        /// <param name="ip">指定するIPアドレス</param>
         public void Disconnect(string ip) {
             if (ConnectingList.ContainsKey(ip)) {
                 ConnectingList[ip].Disconnect(true);
@@ -196,17 +272,21 @@ namespace RUtil.RTcp
             }
         }
 
+        /// <summary>
+        /// 指定した条件に合うソケットとの接続を切断します
+        /// </summary>
+        /// <param name="target"></param>
         public void Disconnect(Func<Socket, int, bool> target) {
             for (int i = 0; i < ConnectingList.Count(); i++) {
                 if (target(ConnectingList.ElementAt(i).Value, i)) {
                     ConnectingList.ElementAt(i).Value.Disconnect(true);
-                    // ConnectingList.ElementAt(i).Value.Shutdown(SocketShutdown.Send);
-                    // ConnectingList.ElementAt(i).Value.Close();
                 }
             }
         }
 
-
+        /// <summary>
+        /// サーバーを停止させます
+        /// </summary>
         public void ShutDown() {
             ForcedTermination = true;
             foreach (var item in ConnectingList) {
