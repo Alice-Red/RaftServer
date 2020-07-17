@@ -55,10 +55,14 @@ namespace RaftServer
             bool close = false;
 
             string localPath = targetPath + req.Path;
+
+            // ファイルが存在すればレスポンスとして登録
             if (File.Exists(localPath)) {
                 res.ResponseCode = 200;
 
                 var ext = Path.GetExtension(localPath);
+
+                // 拡張子から.を取り除く
                 res.StoreHeader("Content-Type", Extension.ToContentType[ext.Trim('.')] + ";");
 
                 using (FileStream fs = new FileStream(targetPath + req.Path, FileMode.Open, FileAccess.Read)) {

@@ -21,7 +21,14 @@ namespace RaftServer
             {"DELETE", RequestType.Delete}
         };
 
+        /// <summary>
+        /// リクエストタイプ
+        /// </summary>
         public RequestType RqType { get; private set; }
+
+        /// <summary>
+        /// ファイルパス
+        /// </summary>
         public string Path { get; private set; }
         public string HttpVersion { get; private set; }
         public Dictionary<string, string> Header { get; private set; }
@@ -85,6 +92,11 @@ namespace RaftServer
             Ingredients = sb.ToString();
         }
 
+        /// <summary>
+        /// 指定されたヘッダーの値を取得します
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string HeaderValue(string key) {
             if (Header.ContainsKey(key)) {
                 return Header[key];
