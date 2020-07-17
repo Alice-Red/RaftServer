@@ -79,6 +79,10 @@ namespace RaftServer
             }
         }
 
+        /// <summary>
+        /// ディレクトリを指定された場合にindexのファイルを指定します
+        /// </summary>
+        /// <param name="path"></param>
         public void StoreFile(string path) {
             if (!File.Exists(path) && path.LastOrDefault() == '/') {
                 var indexes = new string[] { "index.html", "index.php" };
