@@ -9,6 +9,7 @@ namespace RaftServer
     public class RaftServer
     {
         private Server server;
+        
         private const string targetPath = "target";
 
 
@@ -20,6 +21,8 @@ namespace RaftServer
             server.Boot();
             Console.WriteLine($"serverStarted --> [ http://127.0.0.1:{server.Port} ]");
         }
+        
+        // サーバー停止
         public void Stop() {
             server.ShutDown();
         }
@@ -32,6 +35,7 @@ namespace RaftServer
             Console.WriteLine($"Disconnected ::[ {e.IpAddress} ]");
         }
 
+        // メッセージを受け取った時の処理
         private void Server_MessageReceived(Server sender, MessageReceivedArgs e) {
 
             // Console.WriteLine(e.IpAddress);
@@ -40,6 +44,11 @@ namespace RaftServer
 
             HttpRequestObject req = new HttpRequestObject(e.Message);
             HttpResponseObject res = new HttpResponseObject("1.1");
+
+
+
+
+
 
             bool close = false;
 
@@ -78,6 +87,11 @@ namespace RaftServer
 
             if (close)
                 sender.Disconnect(e.IpAddress);
+
+
+
+
+
         }
     }
 }
