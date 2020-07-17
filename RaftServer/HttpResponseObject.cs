@@ -84,14 +84,13 @@ namespace RaftServer
         /// </summary>
         /// <param name="path"></param>
         public void StoreFile(string path) {
-            if (!File.Exists(path) && path.LastOrDefault() == '/') {
-                var indexes = new string[] { "index.html", "index.php" };
-                foreach (var item in indexes) {
-                    if (File.Exists(path + item)) {
-                        path += item;
-                        break;
-                    }
-                }
+            if (File.Exists(path) || path.LastOrDefault() != '/') {
+                return;
+            }
+            var indexes = new string[] { "index.html", "index.php" };
+            foreach (var item in indexes.Where(item => File.Exists(path + item))) {
+                path += item;
+                break;
             }
         }
 
