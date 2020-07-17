@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 using System.Diagnostics;
 using RUtil.RTcp;
+using System.Runtime.ConstrainedExecution;
 
 namespace RaftServer
 {
@@ -12,9 +13,10 @@ namespace RaftServer
         
         private const string targetPath = "target";
 
+        public const int Port = 12345;
 
         public RaftServer() {
-            server = new Server(12345);
+            server = new Server(Port);
             server.MessageReceived += Server_MessageReceived;
             //server.ConnectionSuccessfull += Server_Connected;
             //server.DisConnected += Server_Disconnected;
