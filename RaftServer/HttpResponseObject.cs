@@ -9,7 +9,6 @@ namespace RaftServer
 {
     public class HttpResponseObject
     {
-        private static string[] indexes = new string[] { "index.html", "index.php" };
 
         public string HttpVersion { get; set; }
         public int ResponseCode { get; set; }
@@ -82,6 +81,7 @@ namespace RaftServer
 
         public void StoreFile(string path) {
             if (!File.Exists(path) && path.LastOrDefault() == '/') {
+                var indexes = new string[] { "index.html", "index.php" };
                 foreach (var item in indexes) {
                     if (File.Exists(path + item)) {
                         path += item;
@@ -106,7 +106,7 @@ namespace RaftServer
         /// <returns></returns>
         private string HeaderToString() {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"HTTP/{HttpVersion} {ResponseCode} {HttpResponseCode.ResponseCode[ResponseCode]}");
+            sb.AppendLine($"HTTP/{HttpVersion} {ResponseCode} {HttpResponse.Code[ResponseCode]}");
             foreach (var item in Header) {
                 sb.AppendLine($"{item.Key}: {item.Value}");
             }
