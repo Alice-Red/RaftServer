@@ -1225,6 +1225,29 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
+      },
+      "RaftServer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "RUtil.RTcp": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RaftServer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RaftServer.dll": {}
+        }
+      },
+      "RUtil.RTcp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/RUtil.RTcp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RUtil.RTcp.dll": {}
+        }
       }
     }
   },
@@ -4618,39 +4641,65 @@
         "system.xml.xpath.xmldocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xmldocument.nuspec"
       ]
+    },
+    "RaftServer/1.0.0": {
+      "type": "project",
+      "path": "../RaftServer/RaftServer.csproj",
+      "msbuildProject": "../RaftServer/RaftServer.csproj"
+    },
+    "RUtil.RTcp/1.0.0": {
+      "type": "project",
+      "path": "../RUtil.RTcp/RUtil.RTcp.csproj",
+      "msbuildProject": "../RUtil.RTcp/RUtil.RTcp.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.NET.Test.Sdk >= 16.4.0",
       "NUnit3TestAdapter >= 3.15.1",
+      "RUtil.RTcp >= 1.0.0",
+      "RaftServer >= 1.0.0",
       "nunit >= 3.12.0"
     ]
   },
   "packageFolders": {
-    "/Users/pc1013/.nuget/packages/": {}
+    "C:\\Users\\kaz_1\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/pc1013/RiderProjects/RaftServer/TestRaft/TestRaft.csproj",
+      "projectUniqueName": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\TestRaft\\TestRaft.csproj",
       "projectName": "TestRaft",
-      "projectPath": "/Users/pc1013/RiderProjects/RaftServer/TestRaft/TestRaft.csproj",
-      "packagesPath": "/Users/pc1013/.nuget/packages/",
-      "outputPath": "/Users/pc1013/RiderProjects/RaftServer/TestRaft/obj/",
+      "projectPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\TestRaft\\TestRaft.csproj",
+      "packagesPath": "C:\\Users\\kaz_1\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\TestRaft\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
-        "/Users/pc1013/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\kaz_1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RaftServer\\RaftServer.csproj": {
+              "projectPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RaftServer\\RaftServer.csproj"
+            },
+            "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RUtil.RTcp\\RUtil.RTcp.csproj": {
+              "projectPath": "C:\\Users\\kaz_1\\Source\\Repos\\RaftServer\\RUtil.RTcp\\RUtil.RTcp.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4690,7 +4739,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.300/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

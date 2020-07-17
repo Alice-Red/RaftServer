@@ -1,6 +1,6 @@
 using System;
 
-namespace RDSandboxCUI
+namespace RaftServer
 {
     public class Program
     {

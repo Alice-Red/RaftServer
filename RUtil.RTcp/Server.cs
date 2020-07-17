@@ -85,7 +85,7 @@ namespace RUtil.RTcp
 
 
             // IPAddress[] adrList = Dns.GetHostAddresses();
-            ServerAwaked?.Invoke(this, new ServerAwakedArgs(new string[] {server.LocalEndPoint.ToString()}, Port));
+            ServerAwaked?.Invoke(this, new ServerAwakedArgs(new string[] { server.LocalEndPoint.ToString() }, Port));
             server.BeginAccept(new AsyncCallback(AcceptCallback), server);
         }
 
@@ -93,7 +93,7 @@ namespace RUtil.RTcp
             if (ForcedTermination)
                 return;
 
-            var server = (Socket) ar.AsyncState;
+            var server = (Socket)ar.AsyncState;
             Socket client;
             // int Id = ID;
             // bool exit = false;
@@ -124,22 +124,22 @@ namespace RUtil.RTcp
                             if (resSize == 0 && ms.Length == 0) {
                                 continue;
                             }
-
                             ms.Write(resBytes, 0, resSize);
                             // Debug.WriteLine(string.Join(" ", resBytes.Select(s => $"{s}")));
-                            Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
+                            //Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
                             sw.Restart();
                         } while (resBytes[resSize - 1] != '\n');
+                        //Debug.WriteLine($"{Environment.NewLine}------------------------       response fin.      ---------------------------");
 
                         var resData = resBytes.ToArray();
                         DataReceived?.Invoke(this, new DataReceivedArgs(ipadd, resData));
                         var resMsg = Encoding.UTF8.GetString(ms.ToArray())
                             .Trim('\r', '\n');
-                        Debug.WriteLine($"{Environment.NewLine}------------------------       response fin.      ---------------------------");
                         // Debug.WriteLine($"{resMsg}{Environment.NewLine}------------------------------------------------");
                         MessageReceived?.Invoke(this, new MessageReceivedArgs(ipadd, resMsg));
                     } catch (Exception e) {
                         Console.WriteLine(e);
+                        Console.WriteLine(resSize);
                         break;
                     }
                 }
