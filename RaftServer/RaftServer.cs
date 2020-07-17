@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 using RUtil.RTcp;
 
 namespace RaftServer
@@ -19,26 +20,27 @@ namespace RaftServer
             server.Boot();
             Console.WriteLine($"serverStarted --> [ http://127.0.0.1:{server.Port} ]");
         }
-
         public void Stop() {
             server.ShutDown();
         }
 
         private void Server_Connected(Server sender, ConnectionSuccessfullArgs e) {
-            Console.WriteLine($"{e.IpAddress} : Entry");
+            Console.WriteLine($"Connected ::[ {e.IpAddress} ]");
         }
 
         private void Server_Disconnected(Server sender, DisConnectedArgs e) {
-            Console.WriteLine($"{e.IpAddress} : Exit");
+            Console.WriteLine($"Disconnected ::[ {e.IpAddress} ]");
         }
 
         private void Server_MessageReceived(Server sender, MessageReceivedArgs e) {
+
             // Console.WriteLine(e.IpAddress);
-            // Console.WriteLine(e.Message);
+            //Debug.WriteLine(e.Message);
+            //Console.WriteLine(e.Message);
+
             HttpRequestObject req = new HttpRequestObject(e.Message);
             HttpResponseObject res = new HttpResponseObject("1.1");
-            //Console.WriteLine($"{e.IpAddress} =-= {req.Path}");
-            // Console.WriteLine($"");
+
             bool close = false;
 
             string localPath = targetPath + req.Path;

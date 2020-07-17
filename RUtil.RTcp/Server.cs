@@ -126,10 +126,10 @@ namespace RUtil.RTcp
                             }
                             ms.Write(resBytes, 0, resSize);
                             // Debug.WriteLine(string.Join(" ", resBytes.Select(s => $"{s}")));
-                            Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
+                            //Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
                             sw.Restart();
                         } while (resBytes[resSize - 1] != '\n');
-                        Debug.WriteLine($"{Environment.NewLine}------------------------       response fin.      ---------------------------");
+                        //Debug.WriteLine($"{Environment.NewLine}------------------------       response fin.      ---------------------------");
 
                         var resData = resBytes.ToArray();
                         DataReceived?.Invoke(this, new DataReceivedArgs(ipadd, resData));
