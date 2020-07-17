@@ -26,7 +26,7 @@ namespace TestRaft
                 @"Accept-Encoding: gzip, deflate, br\r\n" +
                 @"Accept-Language: ja,en-US;q=0.9,en;q=0.8\r\n" +
                 @"Cookie: backendVersion=1.1.0.2686; localauth=localapia1c8ea6d5fcdfaef:; isNotIncognito=true; _ga=GA1.1.1850969703.1593050777\r\n"
-                );
+            );
 
             Assert.Equals(hreq.RqType, RequestType.Get);
             Assert.Equals(hreq.Path, "/resource/c2.png");
@@ -43,7 +43,7 @@ namespace TestRaft
             HttpRequestObject hreq2 = new HttpRequestObject(
                 @"GET /containts/new/ HTTP/1.1\r\n" +
                 @"Connection: keep-alive\r\n"
-                );
+            );
 
             Assert.Equals(hreq2.RqType, RequestType.Get);
             Assert.Equals(hreq2.Path, "/containts/new/index.html");
