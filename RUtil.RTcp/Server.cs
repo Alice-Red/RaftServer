@@ -127,7 +127,6 @@ namespace RUtil.RTcp
             server.BeginAccept(new AsyncCallback(AcceptCallback), server);
         }
 
-        // 改  善  の  余  地  し  か  な  い
         // 少しは改善されたと信じている
         private void AcceptCallback(IAsyncResult ar) {
             if (ForcedTermination)
