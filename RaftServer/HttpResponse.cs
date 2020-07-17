@@ -5,6 +5,9 @@ namespace RaftServer
     public class HttpResponse
     {
 
+        /// <summary>
+        /// レスポンスコードを定義します
+        /// </summary>
         public static Dictionary<int, string> Code = new Dictionary<int, string>() {
             {100, "Continue"},
             {101, "Switching Protocol"},

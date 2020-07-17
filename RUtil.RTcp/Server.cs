@@ -134,25 +134,19 @@ namespace RUtil.RTcp
 
             var server = (Socket)ar.AsyncState;
             Socket client;
-            // int Id = ID;
-            // bool exit = false;
+
             string ipadd = "";
-            try {
-                client = server.EndAccept(ar);
-                server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                // server.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.DontLinger , true);
-                server.BeginAccept(new AsyncCallback(AcceptCallback), server);
-                ConnectionSuccessfull?.Invoke(this, new ConnectionSuccessfullArgs(client.RemoteEndPoint.ToString()));
-                ConnectingList.Add(client.RemoteEndPoint.ToString(), client);
-                ConnectedCount++;
-            } catch {
-                return;
-            }
+            client = server.EndAccept(ar);
+
+            server.BeginAccept(new AsyncCallback(AcceptCallback), server);
+            ConnectionSuccessfull?.Invoke(this, new ConnectionSuccessfullArgs(client.RemoteEndPoint.ToString()));
+            ConnectingList.Add(client.RemoteEndPoint.ToString(), client);
+            ConnectedCount++;
 
             ipadd = client.RemoteEndPoint.ToString();
             var sw = new Stopwatch();
             sw.Start();
+
             while (sw.ElapsedMilliseconds < TimeoutMilliSec) {
                 using (MemoryStream ms = new System.IO.MemoryStream()) {
                     byte[] resBytes = new byte[255];
@@ -164,28 +158,22 @@ namespace RUtil.RTcp
                                 continue;
                             }
                             ms.Write(resBytes, 0, resSize);
-                            // Debug.WriteLine(string.Join(" ", resBytes.Select(s => $"{s}")));
-                            //Debug.Write($"{Encoding.UTF8.GetString(resBytes)} |=-=| ");
                             sw.Restart();
                         } while (resBytes[resSize - 1] != '\n');
-                        //Debug.WriteLine($"{Environment.NewLine}------------------------       response fin.      ---------------------------");
 
                         var resData = resBytes.ToArray();
                         DataReceived?.Invoke(this, new DataReceivedArgs(ipadd, resData));
-                        var resMsg = Encoding.UTF8.GetString(ms.ToArray())
-                            .Trim('\r', '\n');
-                        // Debug.WriteLine($"{resMsg}{Environment.NewLine}------------------------------------------------");
+                        var resMsg = Encoding.UTF8.GetString(ms.ToArray()).Trim('\r', '\n');
                         MessageReceived?.Invoke(this, new MessageReceivedArgs(ipadd, resMsg));
                     } catch (Exception e) {
-                        Console.WriteLine(e);
-                        Console.WriteLine(resSize);
+
                         break;
                     }
                 }
             }
 
             sw.Stop();
-            Disconnect(ipadd);
+            //Disconnect(ipadd);
         }
 
         /// <summary>

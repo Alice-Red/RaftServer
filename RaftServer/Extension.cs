@@ -5,6 +5,9 @@ namespace RaftServer
 {
     public class Extension
     {
+        /// <summary>
+        /// MIMEタイプを定義します
+        /// </summary>
         public static Dictionary<string, string> ToContentType = new Dictionary<string, string>() {
             {"html", "text/html"},
             {"htm", "text/html"},
