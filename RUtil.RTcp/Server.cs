@@ -20,8 +20,8 @@ namespace RUtil.RTcp
         /// </summary>
         /// <param name="sender">呼び出したサーバークラス</param>
         /// <param name="e"></param>
-        public delegate void ServerAwakedHandler(Server sender, ServerAwakedArgs e);
-        public event ServerAwakedHandler ServerAwaked;
+        public delegate void ServerAwakenedHandler(Server sender, ServerAwakedArgs e);
+        public event ServerAwakenedHandler ServerAwakened;
 
         /// <summary>
         /// メッセージを受け取った際に呼び出されます
@@ -44,8 +44,8 @@ namespace RUtil.RTcp
         /// </summary>
         /// <param name="sender">呼び出したサーバークラス</param>
         /// <param name="e"></param>
-        public delegate void ConnectionSuccessfullHandler(Server sender, ConnectionSuccessfullArgs e);
-        public event ConnectionSuccessfullHandler ConnectionSuccessfull;
+        public delegate void ConnectionSuccessfulHandler(Server sender, ConnectionSuccessfullArgs e);
+        public event ConnectionSuccessfulHandler ConnectionSuccessful;
 
         /// <summary>
         /// クライアントとの接続が切られたときに呼び出されます
@@ -73,7 +73,7 @@ namespace RUtil.RTcp
         /// 現在の接続数を返します
         /// </summary>
         public int ConnectedCount {
-            get { return connectedCount; }
+            get => connectedCount;
             private set {
                 if (connectedCount != value)
                     ConnectedCountChanged?.Invoke(this, new ConnectedCountChangedArgs(value));
@@ -123,7 +123,7 @@ namespace RUtil.RTcp
         // 受け入れを開始
         private void StartAccept(Socket server) {
             string hostname = Dns.GetHostName();
-            ServerAwaked?.Invoke(this, new ServerAwakedArgs(new string[] { server.LocalEndPoint.ToString() }, Port));
+            ServerAwakened?.Invoke(this, new ServerAwakedArgs(new string[] { server.LocalEndPoint.ToString() }, Port));
             server.BeginAccept(new AsyncCallback(AcceptCallback), server);
         }
 
@@ -135,11 +135,11 @@ namespace RUtil.RTcp
             var server = (Socket)ar.AsyncState;
             Socket client;
 
-            string ipadd = "";
+            var ipadd = "";
             client = server.EndAccept(ar);
 
             server.BeginAccept(new AsyncCallback(AcceptCallback), server);
-            ConnectionSuccessfull?.Invoke(this, new ConnectionSuccessfullArgs(client.RemoteEndPoint.ToString()));
+            ConnectionSuccessful?.Invoke(this, new ConnectionSuccessfullArgs(client.RemoteEndPoint.ToString()));
             ConnectingList.Add(client.RemoteEndPoint.ToString(), client);
             ConnectedCount++;
 
@@ -257,14 +257,14 @@ namespace RUtil.RTcp
         /// </summary>
         /// <param name="ip">指定するIPアドレス</param>
         public void Disconnect(string ip) {
-            if (ConnectingList.ContainsKey(ip)) {
-                ConnectingList[ip].Disconnect(true);
-                // ConnectingList[ip].Shutdown(SocketShutdown.Both);
-                ConnectingList[ip].Close();
-                DisConnected?.Invoke(this, new DisConnectedArgs(ip));
-                ConnectingList.Remove(ip);
-                ConnectedCount -= 1;
-            }
+            if (!ConnectingList.ContainsKey(ip))
+                return;
+            ConnectingList[ip].Disconnect(true);
+            // ConnectingList[ip].Shutdown(SocketShutdown.Both);
+            ConnectingList[ip].Close();
+            DisConnected?.Invoke(this, new DisConnectedArgs(ip));
+            ConnectingList.Remove(ip);
+            ConnectedCount -= 1;
         }
 
         /// <summary>

@@ -220,7 +220,7 @@ namespace RUtil.RTcp
                 Console.Write(" >> ");
                 string sendMsg = Console.ReadLine();
                 //何も入力されなかった時は終了
-                if (sendMsg == null || sendMsg.Length == 0 || DisconnectKeyWord.Contains(sendMsg)) {
+                if (string.IsNullOrEmpty(sendMsg) || DisconnectKeyWord.Contains(sendMsg)) {
                     exit = true;
                     //break;
                 }

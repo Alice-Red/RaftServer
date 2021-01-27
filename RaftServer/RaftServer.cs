@@ -41,8 +41,8 @@ namespace RaftServer
         private void Server_MessageReceived(Server sender, MessageReceivedArgs e) {
 
             // Console.WriteLine(e.IpAddress);
-            //Debug.WriteLine(e.Message);
-            //Console.WriteLine(e.Message);
+            // Debug.WriteLine(e.Message);
+            // Console.WriteLine(e.Message);
 
             HttpRequestObject req = new HttpRequestObject(e.Message);
             HttpResponseObject res = new HttpResponseObject("1.1");
@@ -88,7 +88,7 @@ namespace RaftServer
                 res.ResponseCode = 404;
             }
 
-            //Console.WriteLine($"{req.Path} : {res.ResponseCode}");
+            // Console.WriteLine($"{req.Path} : {res.ResponseCode}");
             sender.Send(e.IpAddress, res.ToByteArrayAll());
 
             if (close)
